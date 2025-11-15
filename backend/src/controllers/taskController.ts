@@ -1,11 +1,12 @@
 import type { Request, Response } from 'express';
+import prisma from '../config/prismaClient.js';
 
-export const getTasks = (_req: Request, res: Response) => {
-  const mockTasks = [
-    { id: 1, title: 'Design database schema', status: 'In Progress' },
-    { id: 2, title: 'Implement user login', status: 'Pending' },
-    { id: 3, title: 'Set up CI/CD pipeline', status: 'Completed' },
-  ];
-
-  res.status(200).json(mockTasks);
+export const getTasks = async (_req: Request, res: Response) => {
+  try {
+    const tasks = await prisma.task.findMany();
+    res.status(200).json(tasks);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch tasks' });
+  }
 };
