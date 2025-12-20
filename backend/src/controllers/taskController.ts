@@ -15,6 +15,9 @@ export const taskController = {
 
   async create(req: Request, res: Response) {
     const { title, description } = req.body;
+    if (!title) {
+      return res.status(400).json({ error: 'Title is required' });
+    }
     const newTask = await taskService.create({ title, description });
     res.status(201).json(newTask);
   },
