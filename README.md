@@ -25,6 +25,5 @@
 - /frontend → React + TS app
 - /backend → Node + TS API
 - .vscode/ → Editor config
-
 - npx prisma studio -> to run prisma
 - npm run dev -> to run the backend and frontend
