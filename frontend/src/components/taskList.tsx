@@ -3,9 +3,10 @@ import type { Task } from "../types/task";
 interface TaskListProps {
   tasks: Task[];
   onStatusChange: (id: number, status: Task["status"]) => void;
+  onDelete: (id: number) => void;
 }
 
-export function TaskList({ tasks, onStatusChange }: TaskListProps) {
+export function TaskList({ tasks, onStatusChange, onDelete }: TaskListProps) {
   if (tasks.length === 0) {
     return <p>No tasks yet</p>;
   }
@@ -32,6 +33,13 @@ export function TaskList({ tasks, onStatusChange }: TaskListProps) {
                 Done
               </button>
             )}
+
+            <button
+              onClick={() => onDelete(task.id)}
+              style={{ marginLeft: "0.5rem", color: "red" }}
+            >
+              Delete
+            </button>
           </div>
         </li>
       ))}

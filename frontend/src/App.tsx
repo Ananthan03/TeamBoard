@@ -25,6 +25,11 @@ function App() {
     setTasks((prev) => prev.map((task) => (task.id === id ? updated : task)));
   }
 
+  async function handleDelete(id: number) {
+    await taskApi.remove(id);
+    setTasks((prev) => prev.filter((task) => task.id !== id));
+  }
+
   if (loading) {
     return <p>Loading tasks...</p>;
   }
@@ -34,7 +39,11 @@ function App() {
       <h1>TeamBoard</h1>
 
       <TaskForm onTaskCreated={handleTaskCreated} />
-      <TaskList tasks={tasks} onStatusChange={handleStatusChange} />
+      <TaskList
+        tasks={tasks}
+        onStatusChange={handleStatusChange}
+        onDelete={handleDelete}
+      />
     </div>
   );
 }
